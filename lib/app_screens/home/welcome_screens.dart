@@ -25,7 +25,7 @@ class WelcomeScreen extends StatelessWidget {
                     backgroundColor: Colors.white70,
                     radius: 110,
                     child: CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/cassava2.jpg'),
+                      backgroundImage: AssetImage('assets/images/มันสำปะหลัง-ตัด.jpg'),
                       radius: 108,
                     ),
                   ),

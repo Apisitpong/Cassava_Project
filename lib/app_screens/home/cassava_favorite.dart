@@ -10,7 +10,7 @@ class CassavaFavorite extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.yellow,
+      backgroundColor: kBackgroundScaffold,
       body: Stack(
         children: [
           Container(
@@ -37,7 +37,7 @@ class CassavaFavorite extends StatelessWidget {
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
                     height: 2,
-                    color: kTextColor,
+                    color: kBackgroundScaffold,
                   ),
                 ),
               ),
@@ -52,6 +52,12 @@ class CassavaFavorite extends StatelessWidget {
                   height: size.height * .6,
                   width: size.width * .85,
                   decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                            offset: const Offset(0, 7),
+                            blurRadius: 10,
+                            color: kSecondaryColor.withOpacity(0.6))
+                      ],
                       borderRadius: BorderRadius.circular(13),
                       color: kTextColor),
                 ),

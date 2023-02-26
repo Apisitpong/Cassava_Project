@@ -10,7 +10,7 @@ class CassavaPrice extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: kBackgroundScaffold,
       body: Stack(
         children: [
           Container(
@@ -37,7 +37,7 @@ class CassavaPrice extends StatelessWidget {
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
                     height: 2,
-                    color: kTextColor,
+                    color: kBackgroundScaffold,
                   ),
                 ),
               ),
@@ -52,6 +52,12 @@ class CassavaPrice extends StatelessWidget {
                   height: size.height * .45,
                   width: size.width * .85,
                   decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                            offset: const Offset(0, 7),
+                            blurRadius: 10,
+                            color: kSecondaryColor.withOpacity(0.6))
+                      ],
                       borderRadius: BorderRadius.circular(13),
                       color: kTextColor),
                   child: const PriceToday(),
@@ -75,31 +81,59 @@ class PriceToday extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('แป้งมันสำปะหลัง 25%',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-          SizedBox(height: 16,),
+          Text(
+            'แป้งมันสำปะหลัง 25%',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 16,
+          ),
           Row(
             children: [
-              Text('วันนี้ :',style: TextStyle(fontSize: 16),),
+              Text(
+                'วันนี้ :',
+                style: TextStyle(fontSize: 16),
+              ),
             ],
           ),
-          SizedBox(height: 16,),
+          SizedBox(
+            height: 16,
+          ),
           Row(
             children: [
-              Text('7 วันที่แล้ว :',style: TextStyle(fontSize: 16),),
+              Text(
+                '7 วันที่แล้ว :',
+                style: TextStyle(fontSize: 16),
+              ),
             ],
           ),
-          SizedBox(height: 24,),
-          Text('แป้งมันสำปะหลัง 30%',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-          SizedBox(height: 16,),
+          SizedBox(
+            height: 24,
+          ),
+          Text(
+            'แป้งมันสำปะหลัง 30%',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 16,
+          ),
           Row(
             children: [
-              Text('วันนี้ :',style: TextStyle(fontSize: 16),),
+              Text(
+                'วันนี้ :',
+                style: TextStyle(fontSize: 16),
+              ),
             ],
           ),
-          SizedBox(height: 16,),
+          SizedBox(
+            height: 16,
+          ),
           Row(
             children: [
-              Text('7 วันที่แล้ว :',style: TextStyle(fontSize: 16),),
+              Text(
+                '7 วันที่แล้ว :',
+                style: TextStyle(fontSize: 16),
+              ),
             ],
           ),
         ],
@@ -107,4 +141,3 @@ class PriceToday extends StatelessWidget {
     );
   }
 }
-

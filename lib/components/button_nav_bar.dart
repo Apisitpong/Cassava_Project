@@ -36,7 +36,8 @@ class _ButtonNavBarState extends State<ButtonNavBar> {
         ],
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(boxShadow: [
+        decoration: BoxDecoration(
+            boxShadow: [
           BoxShadow(
               offset: const Offset(0, 7),
               blurRadius: 30,

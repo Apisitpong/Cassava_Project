@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../components/button_nav_bar.dart';
 import '../../constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'cassava_calculate.dart';
 import 'cassava_favorite.dart';
 import 'cassava_price.dart';
@@ -17,8 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
-
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -27,8 +26,6 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: kBackgroundColor,
     );
   }
-
-
 }
 
 class CassavaHome extends StatelessWidget {
@@ -39,7 +36,7 @@ class CassavaHome extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: kBackgroundColor,
+        backgroundColor: kBackgroundScaffold,
         body: Stack(
           children: [
             Container(
@@ -48,22 +45,22 @@ class CassavaHome extends StatelessWidget {
                 color: kSecondaryColor,
               ),
             ),
-            Positioned(
-              left: 55,
-              top: 370,
-              child: Align(
-                child: SizedBox(
-                  width: 340,
-                  height: 260,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xffd9d9d9),
-                      borderRadius: BorderRadius.circular(13),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Positioned(
+            //   left: 55,
+            //   top: 370,
+            //   child: Align(
+            //     child: SizedBox(
+            //       width: 340,
+            //       height: 260,
+            //       child: Container(
+            //         decoration: BoxDecoration(
+            //           color: kSecondaryColor,
+            //           borderRadius: BorderRadius.circular(13),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Column(
               children: [
                 Container(
@@ -84,7 +81,7 @@ class CassavaHome extends StatelessWidget {
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
                       height: 2,
-                      color: kTextColor,
+                      color: kBackgroundScaffold,
                     ),
                   ),
                 ),
@@ -99,6 +96,12 @@ class CassavaHome extends StatelessWidget {
                     height: size.height * .6,
                     width: size.width * .85,
                     decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                              offset: const Offset(0, 7),
+                              blurRadius: 10,
+                              color: kSecondaryColor.withOpacity(0.6))
+                        ],
                         borderRadius: BorderRadius.circular(13),
                         color: kTextColor),
                     child: const NewsLink(),
@@ -123,42 +126,92 @@ class NewsLink extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text(
+          children: [
+            const Text(
               'ข่าวสาร',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
-            NewsList(
-              title:
-                  'เพื่อไทยแนะรัฐฯใช้ถุงผลิตจากมันสำปะหลังช่วยเกษตรกรและไม่สร้างภาระประชาชน ',
-              subtitle:
-                  'เพื่อไทยจี้รัฐรณรงค์สร้างจิตสำนึกห้างสรรพสินค้าร้านสะดวกซื้ออย่าเอากำไรลูกค้ามากเกินค้านนโยบายของรัฐบาลที่สร้างภาระให้กับประชาชน',
-              image: 'assets/images/news_image1.jpg',
+            GestureDetector(
+              onTap: () {
+                launchUrl(Uri.parse('https://www.sanook.com/news/8000790/'),
+                    mode: LaunchMode.externalApplication);
+              },
+              child: const NewsList(
+                title:
+                    'เพื่อไทยแนะรัฐฯใช้ถุงผลิตจากมันสำปะหลังช่วยเกษตรกรและไม่สร้างภาระประชาชน ',
+                subtitle:
+                    'เพื่อไทยจี้รัฐรณรงค์สร้างจิตสำนึกห้างสรรพสินค้าร้านสะดวกซื้ออย่าเอากำไรลูกค้ามากเกินค้านนโยบายของรัฐบาลที่สร้างภาระให้กับประชาชน',
+                image: 'assets/images/news_image1.jpg',
+              ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
-            NewsList(
-              title:
-                  'จ่ายแล้ว ประกันรายได้มันสำปะหลังงวดแรก เกษตรกรรับสิทธิ์กว่า 40,000 ครัวเรือน',
-              subtitle:
-                  'รองนายกฯจุรินทร์KickOffจ่ายประกันรายได้มันสำปะหลังงวดแรกวันนี้ส่วนต่างกก.ละ0.23บาท เกษตรกรได้มากสุดครอบครัวละ 2.3 หมื่นบาท',
-              image: 'assets/images/news_image2.jpg',
+            GestureDetector(
+              onTap: () {
+                launchUrl(Uri.parse('https://www.sanook.com/news/7969754/'),
+                    mode: LaunchMode.externalApplication);
+              },
+              child: const NewsList(
+                title:
+                    'จ่ายแล้ว ประกันรายได้มันสำปะหลังงวดแรก เกษตรกรรับสิทธิ์กว่า 40,000 ครัวเรือน',
+                subtitle:
+                    'รองนายกฯจุรินทร์KickOffจ่ายประกันรายได้มันสำปะหลังงวดแรกวันนี้ส่วนต่างกก.ละ0.23บาท เกษตรกรได้มากสุดครอบครัวละ 2.3 หมื่นบาท',
+                image: 'assets/images/news_image2.jpg',
+              ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
-            NewsList(
-              title:
-                  'ชาวบ้านหนองบุญมากสุดช้ำ ถูกกลุ่มคนร้ายบุกขโมยถอน "มันสำปะหลัง" หายหลายตัน',
-              subtitle:
-                  'ชาวบ้านหนองบุญมากสุดซ้ำถูกกลุ่มคนร้ายบุกขโมยถอนมันสำปะหลังหายหลายตัน',
-              image: 'assets/images/news_image3.jpg',
+            GestureDetector(
+              onTap: () {
+                launchUrl(Uri.parse('https://www.sanook.com/news/7586050/'),
+                    mode: LaunchMode.externalApplication);
+              },
+              child: const NewsList(
+                title:
+                    'ชาวบ้านหนองบุญมากสุดช้ำ ถูกกลุ่มคนร้ายบุกขโมยถอน "มันสำปะหลัง" หายหลายตัน',
+                subtitle:
+                    'ชาวบ้านหนองบุญมากสุดซ้ำถูกกลุ่มคนร้ายบุกขโมยถอนมันสำปะหลังหายหลายตัน',
+                image: 'assets/images/news_image3.jpg',
+              ),
             ),
-            SizedBox(
+            const SizedBox(
+              height: 16,
+            ),
+            GestureDetector(
+              onTap: () {
+                launchUrl(Uri.parse('https://www.sanook.com/news/7498062/'),
+                    mode: LaunchMode.externalApplication);
+              },
+              child: const NewsList(
+                title:
+                    '"โจรขโมยมันสำปะหลัง" อาละวาดหนัก หลังราคารับซื้อสูง ล่าสุดถูกขโมยไป 1 ตัน',
+                subtitle:
+                    'ชาวบ้านในอำเภออุบลรัตน์ จังหวัดขอนแก่น ยังคงถูกคนร้ายขโมยเข้าไปถอนมันสำปะหลังต่อเนื่อง หลังราคารับซื้อสูง โดยผู้เสียหายรายล่าสุดถูกขโมยไปกว่าน้ำหนักกว่า 1 ตัน',
+                image: 'assets/images/news_image4.PNG',
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            GestureDetector(
+              onTap: () {
+                launchUrl(Uri.parse('https://www.sanook.com/news/1175302/'),
+                    mode: LaunchMode.externalApplication);
+              },
+              child: const NewsList(
+                title:
+                'ชาวบ้านพบระเบิดในป่ามันสำปะหลังระยอง',
+                subtitle:
+                'ตร.รับแจ้งพบระเบิดเอ็ม 28 ลูกผสมของสิงคโปร์ สภาพพร้อมใช้งาน ซุกป่ามันสำปะหลัง ในเขตเมืองระยอง',
+                image: 'assets/images/news_image5.PNG',
+              ),
+            ),
+            const SizedBox(
               height: 16,
             ),
           ],

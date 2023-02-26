@@ -8,6 +8,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: kBackgroundScaffold,
         body: Container(
           child: SizedBox(
             child: Stack(
@@ -37,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           image: const DecorationImage(
                               image: AssetImage('assets/images/MyProfile.jpg')),
-                          border: Border.all(width: 8, color: Colors.white),
+                          border: Border.all(width: 8, color: kBackgroundScaffold),
                           shape: BoxShape.circle,
                         ),
                       ),

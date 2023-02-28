@@ -27,7 +27,7 @@ class _ButtonNavBarState extends State<ButtonNavBar> {
     return Scaffold(
       body: IndexedStack(
         index: tabIndex,
-        children: const [
+        children:  [
           CassavaHome(),
           CassavaPrice(),
           CassavaPrice(),

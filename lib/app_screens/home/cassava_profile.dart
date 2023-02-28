@@ -1,8 +1,11 @@
 import 'package:cassava_proj/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  ProfileScreen({Key? key}) : super(key: key);
+
+  final auth = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +45,10 @@ class ProfileScreen extends StatelessWidget {
                           shape: BoxShape.circle,
                         ),
                       ),
-                      const Padding(
+                       Padding(
                         padding: EdgeInsets.only(top: 8.0),
                         child: Text(
-                          'Apisitpong',
+                          auth.email!,
                           style: TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold),
                         ),

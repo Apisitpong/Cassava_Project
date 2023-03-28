@@ -242,6 +242,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           },
                           child: const MyButton(
                             textButton: 'Sign up',
+                            color: kSecondaryColor,
                           )),
                       const SizedBox(
                         height: 15,

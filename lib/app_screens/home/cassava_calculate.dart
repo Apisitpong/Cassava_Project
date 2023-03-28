@@ -12,11 +12,13 @@ class CassavaCalculate extends StatefulWidget {
 }
 
 class _CassavaCalculateState extends State<CassavaCalculate> {
-  bool _active = false;
-
-  void _handleTap() {
+  int currentIndex = 0;
+  String result = '';
+  TextEditingController thrControllor = TextEditingController();
+  TextEditingController twoControllor = TextEditingController();
+  void changeIndex(int index) {
     setState(() {
-      _active = !_active;
+      currentIndex = index;
     });
   }
 
@@ -24,182 +26,189 @@ class _CassavaCalculateState extends State<CassavaCalculate> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: kBackgroundScaffold,
-      appBar: AppBar(
-        backgroundColor: kSecondaryColor,
-        centerTitle: true,
-        title: const Text('Cassava Calculate',style: TextStyle(color: kBackgroundScaffold),),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const HomePage()));
-          },
-          icon: const Icon(Icons.arrow_back),
+        backgroundColor: kTextColor,
+        appBar: AppBar(
+          backgroundColor: kSecondaryColor,
+          centerTitle: true,
+          toolbarHeight: size.height * 0.1,
+          title: const Text(
+            'Cassava Calculate',
+            style:
+                TextStyle(fontSize: 24, fontWeight: FontWeight.bold, height: 2),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            },
+            icon: const Icon(Icons.arrow_back),
+            color: kSecondaryColor,
+          ),
         ),
-      ),
-      body: Center(
-        child: Container(
-          height: size.height * .8,
-          width: size.width * .85,
-          decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                    offset: const Offset(0, 7),
-                    blurRadius: 10,
-                    color: kSecondaryColor.withOpacity(0.6))
-              ],
-              borderRadius: BorderRadius.circular(13), color: kTextColor),
-          child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(20),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Row(
+                  children: [
+                    radioButton('เชื้อแป้ง 30% ', kSecondaryColor, 0),
+                    radioButton('เชื้อแป้ง 25% ', kSecondaryColor, 1),
+                  ],
+                ),
                 const SizedBox(
                   height: 20,
                 ),
+                const SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    'ราคา : 3.33',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 const Text(
-                  'กว้าง',
+                  'แปลงที่ดินด้านกว้าง :',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        margin: EdgeInsets.all(10),
-                        padding: EdgeInsets.all(8),
-                        height: size.height * .2,
-                        width: size.width * .5,
-                        color: Colors.grey[300],
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              'assets/images/ellipse-6.png',
-                              height: 120,
-                              width: 50,
-                            ),
-                            Image.asset(
-                              'assets/images/ellipse-7.png',
-                              height: 120,
-                              width: 130,
-                              alignment: Alignment.bottomCenter,
-                              //color: _active ? Colors.black : kTextColor,
-                            )
-                          ],
-                        )),
-                    const Text(
-                      'ยาว',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    )
-                  ],
+                const SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  textAlign: TextAlign.center,
+                  controller: thrControllor,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      hintText: 'กรุณาใส่ที่ดินด้านกว้าง หน่วย เมตร',
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide.none)),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 const Text(
-                  'ขนาดแปลงที่ดิน ',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  'แปลงที่ดินด้านยาว :',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text(
-                      'ด้านกว้าง :',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    Container(
-                      height: 40,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(10)),
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(border: OutlineInputBorder()),
-                      ),
-                    ),
-                    const Text(
-                      'เมตร',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text(
-                      ' ด้านยาว :',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    Container(
-                      height: 40,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(10)),
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(border: OutlineInputBorder()),
-                      ),
-                    ),
-                    const Text(
-                      'เมตร',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: kSecondaryColor),
-                    onPressed: () {}, child: Text('Calculate')),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                const Text(
-                  'ราคาที่คำนวนได้ ',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                TextField(
+                  textAlign: TextAlign.center,
+                  controller: twoControllor,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      hintText: 'กรุณาใส่ที่ดินด้านยาว หน่วย เมตร',
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide.none)),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 50,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      double thr = double.parse(thrControllor.value.text);
+                      double two = double.parse(twoControllor.value.text);
+                      calculatePrice(thr, two);
+                    },
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        backgroundColor: kSecondaryColor),
+                    child: const Text(
+                      'คำนวนรายได้',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 80,
+                const SizedBox(
+                  height: 30,
+                ),
+                const SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    'ราคาขายสุทธิ :',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Container(
-                      height: 40,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(10)),
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(border: OutlineInputBorder()),
-                      ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    '$result บาท',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 50,
+                      fontWeight: FontWeight.bold,
+                      color: kPrimaryColor
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    const Text(
-                      'บาท',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                    IconButton(
-                        onPressed: (){}, icon: Icon(Icons.bookmark_outline))
-                  ],
+                  ),
                 ),
               ],
             ),
           ),
+        ));
+  }
+
+  void calculatePrice(double thr, double two) {
+    double finalResult = thr / two;
+    String price = finalResult.toStringAsFixed(2);
+    setState(() {
+      result = price;
+    });
+  }
+
+  Widget radioButton(String value, Color color, int index) {
+    return Expanded(
+        child: Container(
+      margin: const EdgeInsets.symmetric(horizontal: 12),
+      child: SizedBox(
+        height: 80,
+        width: 100,
+        child: ElevatedButton(
+          onPressed: () {
+            changeIndex(index);
+          },
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              backgroundColor:
+                  currentIndex == index ? kSecondaryColor : Colors.grey[200]),
+          child: Text(
+            value,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: currentIndex == index
+                    ? kPrimaryColor
+                    : color.withOpacity(0.5)),
+          ),
         ),
       ),
-    );
+    ));
   }
 }

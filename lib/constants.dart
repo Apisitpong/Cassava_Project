@@ -5,7 +5,7 @@ const kSecondaryColor = Color(0xff14021a);//พื้นหลังสีคร
 const kTextColor = Color(0xffffffff);//สีตัวหนังสือ(หลัก)
 const kTextSecondColor = Color(0xff9c9c9c);//สีตัวหนังสือ(รอง)
 const kBackgroundColor = Color(0xFFF3F3F3);
-const kBackgroundScaffold = Color(0xFFFFF8DC);//สีscaffold
+const kBackgroundScaffold = Color(0xFFF9EDFD);//สีscaffold
 
 const k2 = Color(0xFF84AB5C);//สีพื้น(เทา)
 

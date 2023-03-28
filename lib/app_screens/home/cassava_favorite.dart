@@ -61,7 +61,7 @@ class CassavaFavorite extends StatelessWidget {
                       borderRadius: BorderRadius.circular(13),
                       color: kTextColor),
                 ),
-              )
+              ),
             ],
           )
         ],

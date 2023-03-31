@@ -11,35 +11,31 @@ String priceCassavaToJson(List<PriceCassava> data) => json.encode(List<dynamic>.
 class PriceCassava {
   PriceCassava({
     required this.id,
-    this.empty,
-    required this.webScraperOrder,
-    this.webScraperStartUrl,
-    this.the25,
-    this.the30,
+    this.chip,
+    this.dryresidue,
+    this.thrpercent,
+    this.twopercent,
   });
 
   int id;
-  String? empty;
-  String webScraperOrder;
-  String? webScraperStartUrl;
-  String? the25;
-  String? the30;
+  String? chip;
+  String? dryresidue;
+  String? thrpercent;
+  String? twopercent;
 
   factory PriceCassava.fromJson(Map<String, dynamic> json) => PriceCassava(
     id: json["id"],
-    empty: json["อำเภอ"],
-    webScraperOrder: json["web-scraper-order"],
-    webScraperStartUrl: json["web-scraper-start-url"],
-    the25: json["เชื้อแป้ง 25%"],
-    the30: json["เชื้อแป้ง 30%"],
+    chip: json["chip"],
+    dryresidue: json["dryresidue"],
+    thrpercent: json["thrpercent"],
+    twopercent: json["twopercent"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "อำเภอ": empty,
-    "web-scraper-order": webScraperOrder,
-    "web-scraper-start-url": webScraperStartUrl,
-    "เชื้อแป้ง 25%": the25,
-    "เชื้อแป้ง 30%": the30,
+    "chip": chip,
+    "dryresidue": dryresidue,
+    "thrpercent": thrpercent,
+    "twopercent": twopercent,
   };
 }

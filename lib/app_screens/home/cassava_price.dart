@@ -35,6 +35,7 @@ class _CassavaPriceState extends State<CassavaPrice> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -60,157 +61,137 @@ class _CassavaPriceState extends State<CassavaPrice> {
         replacement: const Center(
           child: CircularProgressIndicator(),
         ),
-        child: ListView(
-          padding: const EdgeInsets.all(14),
-          children: [
-            const Text(
-              ' ราคารับซื้อหัวมันสด โรงแป้งจังหวัดนครราชสีมา',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text('อำเภอ',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                Text('เชื้อแป้ง 30%',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                Text('เชื้อแป้ง 25%',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Container(
-                height: size.height * .6,
-                width: size.width * .85,
-                decoration: BoxDecoration( borderRadius: BorderRadius.circular(13), color: kTextColor),
-                child: ListView.builder(
-                  itemCount: price?.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            price![index].empty.toString(),
-                            style: const TextStyle(fontSize: 20,),
-                          ),
-                          Text(price![index].the25.toString(),
-                              style: const TextStyle(fontSize: 20,)),
-                          Text(price![index].the30.toString(),
-                              style: const TextStyle(fontSize: 20,)),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildPriceTable() {
-    var size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: size.height * .6,
-        width: size.width * .85,
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(
-              offset: const Offset(0, 7),
-              blurRadius: 10,
-              color: kSecondaryColor.withOpacity(0.6))
-        ], borderRadius: BorderRadius.circular(13), color: Colors.red),
-        child: Column(
-          children: [
-            const Text(
-              ' ราคารับซื้อหัวมันสด โรงแป้งจังหวัดนครราชสีมา',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: ListView.builder(
+          itemCount: 1,
+          itemBuilder: (BuildContext context, int index) {
+            return Padding(
+              padding: const EdgeInsets.all(14.0),
+              child: Column(
                 children: [
-                  Column(
-                    children: const [
-                      Text('title',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
-                      Text('price?.length')
-                    ],
+                  priceBox(
+                      'เชื้อแป้ง 30% :',
+                      price![index].thrpercent.toString(),
+                      kSecondaryColor.withOpacity(0.9)),
+                  const SizedBox(
+                    height: 8,
                   ),
-                  const Text('30per',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  const Text('25per',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  priceBox(
+                      'เชื้อแป้ง 25% :',
+                      price![index].twopercent.toString(),
+                      Colors.indigo),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  priceBox('กากแห้ง :', price![index].dryresidue.toString(),
+                      Colors.blue),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  priceBox('มันเส้น :', price![index].chip.toString(),
+                      kPrimaryColor),
+                  const SizedBox(
+                    height: 8,
+                  ),
                 ],
               ),
-            )
-          ],
+            );
+          },
         ),
       ),
     );
   }
-}
 
-class PriceToday extends StatefulWidget {
-  const PriceToday({Key? key}) : super(key: key);
-
-  @override
-  State<PriceToday> createState() => _PriceTodayState();
-}
-
-class _PriceTodayState extends State<PriceToday> {
-  List<PriceCassava>? price;
-
-  var isLoaded = false;
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
+  Widget priceBox(String title, String price, Color color) {
+    return Container(
+        height: 120,
+        width: double.infinity,
+        decoration:
+            BoxDecoration(borderRadius: BorderRadius.circular(8), color: color),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 35,
+                  ),
+                  Text(
+                    price,
+                    style: const TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  const Text(
+                    '(บาท/กก.)',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ));
   }
-
-  getData() async {
-    price = await PriceService().getPrice();
-    if (price != null) {
-      setState(() {
-        isLoaded = true;
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: price?.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(price![index].empty.toString()),
-            Text(price![index].the30.toString()),
-          ],
-        );
-      },
-    );
-  }
+  // Widget buildPriceTable() {
+  //   var size = MediaQuery.of(context).size;
+  //   return Padding(
+  //     padding: const EdgeInsets.all(8.0),
+  //     child: Container(
+  //       height: size.height * .6,
+  //       width: size.width * .85,
+  //       decoration: BoxDecoration(boxShadow: [
+  //         BoxShadow(
+  //             offset: const Offset(0, 7),
+  //             blurRadius: 10,
+  //             color: kSecondaryColor.withOpacity(0.6))
+  //       ], borderRadius: BorderRadius.circular(13), color: Colors.red),
+  //       child: Column(
+  //         children: [
+  //           const Text(
+  //             ' ราคารับซื้อหัวมันสด โรงแป้งจังหวัดนครราชสีมา',
+  //             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  //           ),
+  //           const SizedBox(
+  //             height: 10,
+  //           ),
+  //           Padding(
+  //             padding: const EdgeInsets.all(8.0),
+  //             child: Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: [
+  //                 Column(
+  //                   children: const [
+  //                     Text('title',
+  //                         style: TextStyle(
+  //                             fontSize: 18, fontWeight: FontWeight.bold)),
+  //                     Text('price?.length')
+  //                   ],
+  //                 ),
+  //                 const Text('30per',
+  //                     style:
+  //                         TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+  //                 const Text('25per',
+  //                     style:
+  //                         TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+  //               ],
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }

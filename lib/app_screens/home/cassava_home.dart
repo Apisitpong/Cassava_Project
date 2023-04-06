@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/button_nav_bar.dart';
 import '../../constants.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../provider/dark_theme_provider.dart';
 import '../../services/news_service.dart';
 import '../../่jsonfile/news_cassava.dart';
 import 'cassava_calculate.dart';
 import 'cassava_favorite.dart';
 import 'cassava_price.dart';
 import 'settings/cassava_profile.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -61,15 +64,15 @@ class _CassavaHomeState extends State<CassavaHome> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
+    final themeChanger = Provider.of<ThemeChanger>(context);
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Cassava NEWS',
-            style:
-                TextStyle(fontSize: 24, fontWeight: FontWeight.bold, height: 2),
+          title: Text(
+            'ข่าวสาร',
+            style: GoogleFonts.getFont('Prompt',
+                fontSize: 24, fontWeight: FontWeight.bold, height: 2),
           ),
-          backgroundColor: kSecondaryColor,
+          backgroundColor: Colors.teal,
           centerTitle: true,
           toolbarHeight: size.height * 0.1,
           leading: IconButton(
@@ -78,10 +81,11 @@ class _CassavaHomeState extends State<CassavaHome> {
                   MaterialPageRoute(builder: (context) => const HomePage()));
             },
             icon: const Icon(Icons.arrow_back),
-            color: kSecondaryColor,
+            color: Colors.teal,
           ),
         ),
-        backgroundColor: kTextColor,
+        //comment ไว้ เพราะจะได้ปรับ Dark mode ได้
+        //backgroundColor: kTextColor,
         body: Visibility(
           visible: isLoaded,
           replacement: const Center(
@@ -122,14 +126,18 @@ class _CassavaHomeState extends State<CassavaHome> {
                                 news![index].title.toString(),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                style: GoogleFonts.getFont('Prompt',
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
                               ),
                             ),
                             Text(
                               news![index].subTitle.toString(),
-                              maxLines: 2,
+                              maxLines: 1,
                               overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.getFont('Prompt',
+                                  color: Colors.black),
                             ),
                           ],
                         ),
@@ -139,7 +147,7 @@ class _CassavaHomeState extends State<CassavaHome> {
                 );
               } else {
                 return Container(
-                  color: kSecondaryColor.withOpacity(0.15),
+                  color: Colors.teal.withOpacity(0.15),
                   padding: const EdgeInsets.all(5),
                   child: Row(
                     children: [
@@ -169,14 +177,17 @@ class _CassavaHomeState extends State<CassavaHome> {
                                 news![index].title.toString(),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                style: GoogleFonts.getFont('Prompt',
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,),
                               ),
                             ),
                             Text(
                               news![index].subTitle.toString(),
-                              maxLines: 2,
+                              maxLines: 1,
                               overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.getFont('Prompt',
+                              ),
                             ),
                           ],
                         ),

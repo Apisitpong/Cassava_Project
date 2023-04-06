@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../components/button_nav_bar.dart';
 import '../../constants.dart';
+import '../../services/price_service.dart';
+import '../../่jsonfile/price_cassava.dart';
 import 'cassava_home.dart';
 
 class CassavaCalculate extends StatefulWidget {
@@ -12,6 +15,24 @@ class CassavaCalculate extends StatefulWidget {
 }
 
 class _CassavaCalculateState extends State<CassavaCalculate> {
+  List<PriceCassava>? price;
+  var isLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    price = await PriceService().getPrice();
+    if (price != null) {
+      setState(() {
+        isLoaded = true;
+      });
+    }
+  }
+
   int currentIndex = 0;
   String result = '';
   TextEditingController thrControllor = TextEditingController();
@@ -26,15 +47,16 @@ class _CassavaCalculateState extends State<CassavaCalculate> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: kTextColor,
+      //comment ไว้ เพราะจะได้ปรับ Dark mode ได้
+        //backgroundColor: kTextColor,
         appBar: AppBar(
-          backgroundColor: kSecondaryColor,
+          backgroundColor: Colors.teal,
           centerTitle: true,
           toolbarHeight: size.height * 0.1,
-          title: const Text(
-            'Cassava Calculate',
-            style:
-                TextStyle(fontSize: 24, fontWeight: FontWeight.bold, height: 2),
+          title:  Text(
+            'คำนวนรายได้',
+            style: GoogleFonts.getFont('Prompt',
+                fontSize: 24, fontWeight: FontWeight.bold, height: 2),
           ),
           leading: IconButton(
             onPressed: () {
@@ -42,7 +64,7 @@ class _CassavaCalculateState extends State<CassavaCalculate> {
                   MaterialPageRoute(builder: (context) => const HomePage()));
             },
             icon: const Icon(Icons.arrow_back),
-            color: kSecondaryColor,
+            color: Colors.teal,
           ),
         ),
         body: SingleChildScrollView(
@@ -61,23 +83,25 @@ class _CassavaCalculateState extends State<CassavaCalculate> {
                 const SizedBox(
                   height: 20,
                 ),
-                const SizedBox(
+                SizedBox(
                   width: double.infinity,
                   child: Text(
-                    'ราคา : 3.33',
+                    currentIndex == 0 ? '3.60 - 3.65' : '3.20 - 3.25',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: GoogleFonts.getFont('Prompt',
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: currentIndex == 0 ? kPrimaryColor : Colors.red),
                   ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
+                 Text(
                   'แปลงที่ดินด้านกว้าง :',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.getFont('Prompt',
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 10,
@@ -88,6 +112,7 @@ class _CassavaCalculateState extends State<CassavaCalculate> {
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       hintText: 'กรุณาใส่ที่ดินด้านกว้าง หน่วย เมตร',
+                      hintStyle: const TextStyle(color: Colors.grey),
                       filled: true,
                       fillColor: Colors.grey[200],
                       border: OutlineInputBorder(
@@ -97,9 +122,11 @@ class _CassavaCalculateState extends State<CassavaCalculate> {
                 const SizedBox(
                   height: 20,
                 ),
-                const Text(
+                 Text(
                   'แปลงที่ดินด้านยาว :',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.getFont('Prompt',
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 10,
@@ -110,6 +137,7 @@ class _CassavaCalculateState extends State<CassavaCalculate> {
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       hintText: 'กรุณาใส่ที่ดินด้านยาว หน่วย เมตร',
+                      hintStyle: const TextStyle(color: Colors.grey),
                       filled: true,
                       fillColor: Colors.grey[200],
                       border: OutlineInputBorder(
@@ -132,25 +160,26 @@ class _CassavaCalculateState extends State<CassavaCalculate> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8)),
                         backgroundColor: kSecondaryColor),
-                    child: const Text(
+                    child:  Text(
                       'คำนวนรายได้',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: GoogleFonts.getFont('Prompt',
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          ),
                     ),
                   ),
                 ),
                 const SizedBox(
                   height: 30,
                 ),
-                const SizedBox(
+                 SizedBox(
                   width: double.infinity,
                   child: Text(
                     'ราคาขายสุทธิ :',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: GoogleFonts.getFont('Prompt',
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(
@@ -159,13 +188,12 @@ class _CassavaCalculateState extends State<CassavaCalculate> {
                 SizedBox(
                   width: double.infinity,
                   child: Text(
-                    '$result บาท',
+                    result == '' ? '' : '$result บาท',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                      color: kPrimaryColor
-                    ),
+                    style: GoogleFonts.getFont('Prompt',
+                        fontSize: 50,
+                        fontWeight: FontWeight.bold,
+                        color: kPrimaryColor),
                   ),
                 ),
               ],
@@ -174,8 +202,11 @@ class _CassavaCalculateState extends State<CassavaCalculate> {
         ));
   }
 
+  //สูตรคำนวน
+  //1600 คือพท. 1 ไร่ = 1600 ตรม.
+  //11520 คือ ราคาที่ได้ / ไร่
   void calculatePrice(double thr, double two) {
-    double finalResult = thr / two;
+    double finalResult = ((thr * two) / 1600) * 11520;
     String price = finalResult.toStringAsFixed(2);
     setState(() {
       result = price;
@@ -200,7 +231,7 @@ class _CassavaCalculateState extends State<CassavaCalculate> {
                   currentIndex == index ? kSecondaryColor : Colors.grey[200]),
           child: Text(
             value,
-            style: TextStyle(
+            style: GoogleFonts.getFont('Prompt',
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: currentIndex == index
@@ -212,3 +243,4 @@ class _CassavaCalculateState extends State<CassavaCalculate> {
     ));
   }
 }
+

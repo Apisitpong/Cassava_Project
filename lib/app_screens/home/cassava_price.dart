@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../components/button_nav_bar.dart';
 import '../../constants.dart';
@@ -38,12 +39,12 @@ class _CassavaPriceState extends State<CassavaPrice> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Cassava Price',
-          style:
-              TextStyle(fontSize: 24, fontWeight: FontWeight.bold, height: 2),
+        title: Text(
+          'ราคามันสำปะหลัง',
+          style: GoogleFonts.getFont('Prompt',
+              fontSize: 24, fontWeight: FontWeight.bold, height: 2),
         ),
-        backgroundColor: kSecondaryColor,
+        backgroundColor: Colors.teal,
         centerTitle: true,
         toolbarHeight: size.height * 0.1,
         leading: IconButton(
@@ -52,10 +53,11 @@ class _CassavaPriceState extends State<CassavaPrice> {
                 MaterialPageRoute(builder: (context) => const HomePage()));
           },
           icon: const Icon(Icons.arrow_back),
-          color: kSecondaryColor,
+          color: Colors.teal,
         ),
       ),
-      backgroundColor: kBackgroundColor,
+      //comment ไว้ เพราะจะได้ปรับ Dark mode ได้
+      //backgroundColor: kBackgroundColor,
       body: Visibility(
         visible: isLoaded,
         replacement: const Center(
@@ -67,28 +69,34 @@ class _CassavaPriceState extends State<CassavaPrice> {
             return Padding(
               padding: const EdgeInsets.all(14.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  typeName('ราคามันสด'),
                   priceBox(
                       'เชื้อแป้ง 30% :',
                       price![index].thrpercent.toString(),
-                      kSecondaryColor.withOpacity(0.9)),
+                      Colors.indigo[700]!,
+                      Colors.greenAccent),
                   const SizedBox(
                     height: 8,
                   ),
                   priceBox(
                       'เชื้อแป้ง 25% :',
                       price![index].twopercent.toString(),
-                      Colors.indigo),
+                      Colors.indigo[700]!,
+                      Colors.redAccent),
                   const SizedBox(
                     height: 8,
                   ),
+                  typeName('ราคาอื่นๆ'),
                   priceBox('กากแห้ง :', price![index].dryresidue.toString(),
-                      Colors.blue),
+                      Colors.purple[800]!, Colors.greenAccent),
                   const SizedBox(
                     height: 8,
                   ),
                   priceBox('มันเส้น :', price![index].chip.toString(),
-                      kPrimaryColor),
+                      Colors.purple[800]!, Colors.greenAccent),
                   const SizedBox(
                     height: 8,
                   ),
@@ -101,12 +109,13 @@ class _CassavaPriceState extends State<CassavaPrice> {
     );
   }
 
-  Widget priceBox(String title, String price, Color color) {
+  Widget priceBox(
+      String title, String price, Color colorBox, Color colorPrice) {
     return Container(
         height: 120,
         width: double.infinity,
-        decoration:
-            BoxDecoration(borderRadius: BorderRadius.circular(8), color: color),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8), color: colorBox),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Row(
@@ -114,8 +123,8 @@ class _CassavaPriceState extends State<CassavaPrice> {
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                    fontSize: 30,
+                style: GoogleFonts.getFont('Prompt',
+                    fontSize: 28,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
@@ -127,14 +136,14 @@ class _CassavaPriceState extends State<CassavaPrice> {
                   ),
                   Text(
                     price,
-                    style: const TextStyle(
-                        fontSize: 30,
+                    style: GoogleFonts.getFont('Prompt',
+                        fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                        color: colorPrice),
                   ),
-                  const Text(
+                   Text(
                     '(บาท/กก.)',
-                    style: TextStyle(
+                    style: GoogleFonts.getFont('Prompt',
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
@@ -144,6 +153,24 @@ class _CassavaPriceState extends State<CassavaPrice> {
             ],
           ),
         ));
+  }
+
+  Widget typeName(String title) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: GoogleFonts.getFont('Prompt',
+                fontSize: 24,
+                fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
   }
   // Widget buildPriceTable() {
   //   var size = MediaQuery.of(context).size;

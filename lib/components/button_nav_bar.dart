@@ -49,7 +49,7 @@ class _ButtonNavBarState extends State<ButtonNavBar> {
           currentIndex: tabIndex,
           onTap: changeTabIndex,
           selectedFontSize: 12,
-          selectedItemColor: kSecondaryColor,
+          selectedItemColor: Colors.teal,
           unselectedItemColor: Colors.grey.shade300,
           items: [
             itemNavBar(Icons.forum, 'News'),

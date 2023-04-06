@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants.dart';
 import 'cassava_home.dart';
@@ -31,27 +32,28 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 30,),
               Container(
                 padding: const EdgeInsets.only(top: 70, left: 30),
                 alignment: Alignment.centerLeft,
-                child: const Text('CASSAVA',
-                    style: TextStyle(
+                child:  Text('CASSAVA',
+                  style: GoogleFonts.getFont('Prompt',
                       fontSize: 50,
                       fontWeight: FontWeight.w700,
-                      color: kTextColor,
-                    )),
+                      color: kTextColor),),
               ),
+
               Container(
                 padding: const EdgeInsets.only(top: 10, left: 35, bottom: 50),
                 alignment: Alignment.centerLeft,
-                child: const Text(
+                child:  Text(
                     'An app that calculates farmland\nincome for the convenience and \nspeed of the farmland.',
-                    style: TextStyle(
-                      fontSize: 12,
+                  style: GoogleFonts.getFont('Prompt',
+                      fontSize: 16,
                       fontWeight: FontWeight.w700,
-                      color: kTextSecondColor,
-                    )),
+                      color: kTextSecondColor),),
               ),
+              const SizedBox(height: 24,),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -67,13 +69,12 @@ class WelcomeScreen extends StatelessWidget {
                     decoration: const BoxDecoration(
                         color: kPrimaryColor,
                         borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: const Text(
+                    child:  Text(
                       'Get Started',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
+                      style: GoogleFonts.getFont('Prompt',
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
                     )),
               )
             ],

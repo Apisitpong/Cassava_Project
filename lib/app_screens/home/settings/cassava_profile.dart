@@ -1,13 +1,16 @@
 import 'package:cassava_proj/app_screens/home/cassava_home.dart';
 import 'package:cassava_proj/constants.dart';
 import 'package:cassava_proj/login_register/login_page.dart';
+import 'package:cassava_proj/provider/dark_theme_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 import '../../../components/button_nav_bar.dart';
 import '../../../login_register/image_helper.dart';
@@ -55,9 +58,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    final themeChanger = Provider.of<ThemeChanger>(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: kBackgroundScaffold,
+        //comment ไว้ เพราะจะได้ปรับ Dark mode ได้
+        //backgroundColor: kBackgroundColor,
         body: SizedBox(
           child: Stack(
             children: [
@@ -65,18 +70,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 //clipper: CustomShape(),
                 child: Container(
                   height: size.height * 0.1,
-                  color: kSecondaryColor,
+                  color: Colors.teal,
                 ),
               ),
               Container(
                   padding: const EdgeInsets.only(top: 30),
                   alignment: Alignment.topCenter,
-                  child: const Text(
-                    'Settings',
-                    style: TextStyle(
-                        color: Colors.white,
+                  child: Text(
+                    'ตั้งค่า',
+                    style: GoogleFonts.getFont('Prompt',
                         fontSize: 24,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   )),
               Column(
                 //mainAxisAlignment: MainAxisAlignment.center,
@@ -154,16 +159,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: ListView(
+                child: Column(
                   children: [
                     const SizedBox(
-                      height: 120,
+                      height: 100,
                     ),
-                    buildThemeDark('Dark Mode'),
-                    // const Divider(
-                    //   color: kSecondaryColor,
-                    // ),
-                    buildOption(context, 'Language')
+                    Container(
+                      height: 180,
+                      width: 180,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(
+                                "https://img.freepik.com/vector-gratis/persona-cuidando-plantas_52683-18109.jpg?size=338&ext=jpg"),
+                            fit: BoxFit.fill),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    buildOption(context, 'ภาษา'),
+                    buildThemeDark('ธีม'),
+                    RadioListTile<ThemeMode>(
+                        title: Text(
+                          'ขาว',
+                          style: GoogleFonts.getFont('Prompt',
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        value: ThemeMode.light,
+                        groupValue: themeChanger.themeMode,
+                        onChanged: themeChanger.setTheme),
+                    RadioListTile<ThemeMode>(
+                        title: Text(
+                          'ดำ',
+                          style: GoogleFonts.getFont('Prompt',
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        value: ThemeMode.dark,
+                        groupValue: themeChanger.themeMode,
+                        onChanged: themeChanger.setTheme),
                   ],
                 ),
               )
@@ -184,12 +218,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             Text(
               title,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: GoogleFonts.getFont('Prompt',
+                  fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            const Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.grey,
-            )
+            Text(
+              'ไทย',
+              style: GoogleFonts.getFont('Prompt',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey),
+            ),
           ],
         ),
       ),
@@ -204,20 +242,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: [
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-            ),
+            style: GoogleFonts.getFont('Prompt',
+                fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          Switch(
-              activeColor: kPrimaryColor,
-              //trackColor: Colors.grey,
-              value: switchValue,
-              onChanged: (newValue) {
-                switchValue = newValue;
-                isVisible = !newValue;
-                setState(() {});
-              })
+          // Switch(
+          //     activeColor: kPrimaryColor,
+          //     //trackColor: Colors.grey,
+          //     value: switchValue,
+          //     onChanged: (newValue) {
+          //       switchValue = newValue;
+          //       isVisible = !newValue;
+          //       setState(() {});
+          //
+          //     })
         ],
       ),
     );
